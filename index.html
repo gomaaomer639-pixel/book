@@ -46,7 +46,11 @@ header{backdrop-filter:blur(16px);box-shadow:0 8px 30px #0005}.brand{font-size:2
 <a id="supportLink" class="button-link" href="#checkout">تواصل لإتمام الطلب</a>
 </section>
 </main><div id="bookModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="تفاصيل الكتاب"><div class="modal"><div class="modal-head"><h2 id="modalTitle">تفاصيل الكتاب</h2><button class="icon-btn" id="closeModal" type="button">✕</button></div><div class="modal-cover" id="modalMark">B</div><div id="modalCategory" class="book-category"></div><p id="modalDescription" class="muted"></p><div id="modalPrice" class="price"></div><button id="modalAdd" type="button" style="width:100%">أضف للسلة</button></div></div><footer class="footer">© Bookora — Digital Books Store</footer>
-<script src="./assets/store-config.js"></script><script>
+<script src="./assets/store-config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const db=window.supabase.createClient(configUrl(),configKey());
+function configUrl(){return (window.BOOKORA_CONFIG||{}).supabaseUrl||""}
+function configKey(){return (window.BOOKORA_CONFIG||{}).supabaseAnonKey||""}
+
 
 let products=[],cart={},lang="ar",config=window.BOOKORA_CONFIG||{},activeCategory="all",modalProduct=null;
 const $=s=>document.querySelector(s),money=n=>new Intl.NumberFormat(lang==="ar"?"ar-EG":"en-US").format(n)+" "+(lang==="ar"?"ج.م":"EGP");
@@ -79,7 +83,7 @@ function renderCart(){let entries=Object.entries(cart).filter(([id,q])=>q>0);$("
 function setQty(id,v){if(Number(v)<=0)delete cart[id];else cart[id]=Math.min(20,Number(v));renderCart()}
 $("#cartBtn").onclick=()=>$("#cartPanel").classList.toggle("hidden");$("#closeCart").onclick=()=>$("#cartPanel").classList.add("hidden");
 $("#checkoutBtn").onclick=()=>{if(!Object.keys(cart).length)return alert(t("السلة فارغة","Cart is empty"));$("#checkout").classList.remove("hidden");$("#checkout").scrollIntoView({behavior:"smooth"})};
-$("#orderForm").onsubmit=e=>{
+$("#orderForm").onsubmit=async e=>{
  e.preventDefault();if(!Object.keys(cart).length)return;
  if(!config.whatsappNumber){$("#orderMsg").textContent=t("لازم تضيف رقم WhatsApp الخاص بالمتجر في assets/store-config.js قبل استقبال الطلبات.","Set the store WhatsApp number in assets/store-config.js before accepting orders.");return}
  const form=e.currentTarget,fd=new FormData(form),name=String(fd.get("name")||"").trim(),phone=String(fd.get("phone")||"").trim(),method=fd.get("paymentMethod");
@@ -88,6 +92,11 @@ $("#orderForm").onsubmit=e=>{
  const lines=entries.map(x=>`- ${x.product.title_ar} x ${x.qty} = ${x.product.price*x.qty} EGP`).join("\n");
  const payment=method==="instapay"?(config.instapayAddress||"يرجى تزويدي ببيانات InstaPay"):(config.vodafoneCashNumber||"يرجى تزويدي برقم Vodafone Cash");
  const message=`مرحبًا Bookora، أريد تأكيد هذا الطلب:\nالاسم: ${name}\nرقم العميل: ${phone}\n${lines}\nالإجمالي: ${total} EGP\nطريقة الدفع: ${method==="instapay"?"InstaPay":"Vodafone Cash"}\nبيانات الدفع: ${payment}\nسأرسل إيصال التحويل في هذه المحادثة.`;
+ const orderId=crypto.randomUUID();
+ const now=new Date().toISOString();
+ const orderItems=entries.map(x=>({product_id:x.product.id,title:x.product.title_ar||x.product.title_en||"Book",qty:x.qty,price:Number(x.product.price)}));
+ const {error:saveError}=await db.from("orders").insert({id:orderId,customer_name:name,phone,payment_method:method,receipt_file:"",items_json:orderItems,total:Math.round(total),status:"pending",admin_note:"",created_at:now,updated_at:now});
+ if(saveError){$("#orderMsg").textContent=t("تعذر تسجيل الطلب في النظام: ","Could not save the order: ")+saveError.message;return}
  const url="https://wa.me/"+String(config.whatsappNumber).replace(/\D/g,"")+"?text="+encodeURIComponent(message);
  window.open(url,"_blank","noopener");
  $("#orderMsg").textContent=t("تم تجهيز رسالة الطلب. أرسلها في WhatsApp ثم أرسل إيصال التحويل للمراجعة.","Your order message is ready. Send it on WhatsApp, then send your payment receipt for review.");
