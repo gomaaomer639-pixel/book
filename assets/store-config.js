@@ -1,6 +1,6 @@
-// إعدادات علنية للموقع. لا تضع كلمات مرور أو مفاتيح سرية هنا.
+// Public storefront settings. Never put passwords or secret API keys here.
 window.BOOKORA_CONFIG = {
-  whatsappNumber: "",       // رقم دولي بدون + أو مسافات، مثال مصر: 2010XXXXXXXX
-  instapayAddress: "",      // عنوان InstaPay العام
-  vodafoneCashNumber: ""    // رقم Vodafone Cash المخصص لاستقبال المدفوعات
+  whatsappNumber: "201023825831",
+  instapayAddress: "01556984927",
+  vodafoneCashNumber: "01023825831"
 };
