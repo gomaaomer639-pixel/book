@@ -2,226 +2,86 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b5148">
 <title>Bookora | مكتبتك الرقمية</title>
 <style>
-:root{--bg:#090909;--panel:#151515;--line:#292929;--gold:#d6ad55;--muted:#aaa;--white:#f7f4ed}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Tahoma,sans-serif}button,input,select{font:inherit}
-header{position:sticky;top:0;z-index:5;background:#090909ed;border-bottom:1px solid var(--line);padding:16px 5%;display:flex;align-items:center;gap:20px;justify-content:space-between}.brand{font-size:25px;font-weight:900;letter-spacing:1px}.brand span{color:var(--gold)}nav{display:flex;gap:18px;align-items:center}a{color:inherit;text-decoration:none}.actions{display:flex;gap:8px}button{border:0;border-radius:9px;padding:11px 15px;background:var(--gold);color:#17120a;font-weight:700;cursor:pointer}button.secondary{background:#292929;color:var(--white)}button:disabled{opacity:.5}
-.wrap{max-width:1160px;margin:auto;padding:24px 18px}.hero{min-height:330px;border:1px solid #3a3020;border-radius:22px;padding:clamp(28px,6vw,65px);background:radial-gradient(circle at 75% 40%,#4b381b55,transparent 35%),linear-gradient(115deg,#17130d,#090909);display:flex;align-items:center}.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.25;margin:0 0 12px}.gold{color:var(--gold)}.muted{color:var(--muted);line-height:1.8}.search{display:flex;gap:8px;max-width:600px;margin-top:25px}.search input,input,select{background:#0e0e0e;color:var(--white);border:1px solid var(--line);border-radius:9px;padding:12px;width:100%}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:35px 0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.book{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px}.cover{height:190px;border-radius:10px;background:linear-gradient(145deg,#3b2e18,#151515 65%);display:grid;place-items:center;color:var(--gold);font-size:42px;margin-bottom:14px}.book h3{margin:8px 0}.book p{color:var(--muted);font-size:13px;min-height:40px;line-height:1.6}.price{color:var(--gold);font-weight:800;margin:12px 0}.book button{width:100%}.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px;margin:20px 0}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.field label{display:block;font-size:13px;color:#ddd;margin:8px 0}.field input,.field select{margin-top:6px}.hidden{display:none!important}.notice{padding:12px;border-radius:9px;background:#242015;color:#e9d49f;margin:12px 0}.cartline{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:12px 0}.qty{width:70px}.footer{border-top:1px solid var(--line);padding:30px 5%;color:var(--muted);text-align:center;margin-top:50px}
-@media(max-width:700px){header{flex-wrap:wrap}nav{order:3;width:100%;justify-content:center}.hero{min-height:260px}.search{flex-direction:column}}
-:root{--gold2:#f2d58b;--surface:#111;--surface2:#1a1a1a}
-body{background:radial-gradient(ellipse at 50% -20%,#3a2b1640,transparent 48%),var(--bg)}
-header{backdrop-filter:blur(16px);box-shadow:0 8px 30px #0005}.brand{font-size:27px;letter-spacing:2px}.brand span{color:var(--gold2)}
-.hero{position:relative;overflow:hidden;min-height:390px;background:radial-gradient(ellipse at 78% 45%,#c69a3b24,transparent 36%),linear-gradient(120deg,#19150e,#090909 68%);box-shadow:inset 0 0 0 1px #d6ad5518}
-.hero:after{content:'B';position:absolute;left:7%;top:50%;transform:translateY(-50%);font-family:Georgia,serif;font-size:clamp(180px,30vw,330px);font-weight:bold;color:#d6ad550c;pointer-events:none}.hero>div{position:relative;z-index:1;max-width:720px}.hero .eyebrow{display:inline-flex;border:1px solid #8f713b80;border-radius:99px;padding:7px 13px;font-size:12px;letter-spacing:1.5px;color:var(--gold2);margin-bottom:18px}.hero h1{font-size:clamp(36px,5.4vw,66px);letter-spacing:-1px}.hero .muted{max-width:540px;font-size:16px}
-.search{max-width:660px}.search input{background:#ffffff0a;border-color:#ffffff20;padding:15px 17px}.search button{min-width:110px}
-.section-head{margin-top:42px}.section-head h2{font-size:25px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 20px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#141414;color:#ccc;padding:8px 13px;border-radius:99px;font-size:13px}.chip.active{background:#d6ad551a;color:var(--gold2);border-color:#d6ad5580}.sort{width:auto;min-width:160px;padding:10px 12px}
-.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}.book{padding:13px;border-radius:17px;background:linear-gradient(160deg,#191919,#101010);transition:transform .2s,border-color .2s,box-shadow .2s}.book:hover{transform:translateY(-5px);border-color:#8f713b;box-shadow:0 16px 34px #0007}.cover{height:220px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 35%,#d6ad5540,transparent 48%),linear-gradient(145deg,#352816,#121212 72%);border:1px solid #d6ad552b}.cover:before,.cover:after{content:'';position:absolute;border:1px solid #d6ad5550;inset:12px;border-radius:5px}.cover:after{inset:20px}.cover-mark{font-family:Georgia,serif;font-size:55px;font-weight:bold;text-shadow:0 5px 20px #000;z-index:1}.book-category{display:inline-block;color:var(--gold2);font-size:11px;background:#d6ad5516;border:1px solid #d6ad5528;border-radius:99px;padding:4px 9px;margin:4px 0}.book h3{font-size:17px;line-height:1.5;margin:8px 0 4px}.book p{min-height:42px;margin:5px 0}.book-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}.book-actions .secondary{padding-inline:12px}.price{font-size:17px;margin:10px 0}.empty-state{grid-column:1/-1;text-align:center;padding:45px 15px;border:1px dashed #444;border-radius:16px;color:var(--muted)}
-.modal-backdrop{position:fixed;inset:0;background:#000b;z-index:20;display:grid;place-items:center;padding:18px}.modal{width:min(520px,100%);max-height:85vh;overflow:auto;background:#151515;border:1px solid #5b4828;border-radius:18px;padding:22px;box-shadow:0 25px 90px #000}.modal-cover{height:180px;border-radius:12px;display:grid;place-items:center;background:radial-gradient(circle,#d6ad5540,transparent 60%),linear-gradient(145deg,#352816,#101010);color:var(--gold2);font: bold 58px Georgia;margin-bottom:18px}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.modal-head h2{margin:0}.icon-btn{background:#292929;color:white;padding:8px 12px}.trust-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;color:#c8b994;font-size:13px}.trust-row span{display:flex;gap:7px;align-items:center}.footer{background:#0d0d0d}
-@media(max-width:700px){header{padding:13px 4%}.brand{font-size:23px}.hero{min-height:310px;padding:26px 22px}.hero:after{left:-8%;opacity:.6}.hero h1{font-size:38px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.book{padding:9px}.cover{height:165px}.book h3{font-size:14px}.book p{font-size:12px;min-height:54px}.book-actions{grid-template-columns:1fr}.book-actions .secondary{display:none}.price{font-size:15px}.toolbar{align-items:stretch}.sort{width:100%}}
-@media(max-width:390px){.grid{grid-template-columns:1fr}.cover{height:200px}}
-
-.button-link{display:inline-block;padding:11px 16px;border-radius:9px;background:var(--gold);color:#17120a;font-weight:700}
-
-/* Bookora long-form landing page refresh */
-:root{--bg:#071d18;--panel:#102923;--line:#29473f;--gold:#edcc70;--gold2:#f4d982;--muted:#b4c4bd;--white:#f7f1df;--teal:#17665a;--orange:#c65c2e;--purple:#76509a;--blue:#315f98;--pink:#b23f70}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{background:#071d18;color:var(--white);font-family:Tahoma,Arial,sans-serif}
-header{background:#082720ed;border-color:#23483e}
-.brand span{color:var(--gold)}
-nav a{color:#e7e0cc;font-weight:700}
-.wrap{max-width:1120px;padding:26px 22px 130px}
-.hero{min-height:520px;border:1px solid #2d554a;border-radius:30px;padding:clamp(30px,7vw,76px);background:radial-gradient(ellipse at 15% 20%,#d9b85b20,transparent 36%),radial-gradient(ellipse at 85% 85%,#1e806b45,transparent 42%),linear-gradient(135deg,#123a30,#071d18 72%);box-shadow:inset 0 0 0 1px #ffffff08;position:relative}
-.hero:after{content:'BOOKORA';font-family:Georgia,serif;font-size:clamp(55px,12vw,145px);letter-spacing:8px;left:3%;top:50%;opacity:.035}
-.hero .eyebrow{background:#1c594d;color:var(--gold2);border-color:#3c7969;font-weight:700}
-.hero h1{font-size:clamp(38px,6vw,70px);line-height:1.35}
-.hero .muted{font-size:18px;max-width:600px;color:#c2d0c8}
-.hero .search{margin-top:28px}
-.hero .trust-row{margin-top:30px;color:#e4d7ad}
-.section-head{margin:58px 0 20px}
-.section-head h2{font-size:clamp(25px,4vw,36px)}
-.section-intro{color:var(--muted);line-height:2;font-size:16px;max-width:720px;margin:0 0 24px}
-.story-grid,.feature-grid,.steps-grid,.color-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.story-card,.feature-card,.step-card{background:#102923;border:1px solid #2b4b42;border-radius:25px;padding:25px;position:relative;overflow:hidden;min-height:190px}
-.story-card:before,.feature-card:before{content:"";position:absolute;top:0;right:0;left:0;height:7px;background:var(--accent,var(--teal))}
-.story-card h3,.feature-card h3,.step-card h3{font-size:21px;margin:12px 0}
-.story-card p,.feature-card p,.step-card p{color:#b7c7bf;line-height:1.9;margin:0}
-.story-card .symbol{font-size:34px;color:var(--gold)}
-.feature-card:nth-child(2){--accent:var(--orange)}.feature-card:nth-child(3){--accent:var(--purple)}
-.feature-card:nth-child(4){--accent:var(--blue)}.feature-card:nth-child(5){--accent:var(--pink)}.feature-card:nth-child(6){--accent:#b18b32}
-.band{margin:64px 0;padding:clamp(25px,5vw,48px);border-radius:28px;background:linear-gradient(130deg,#1b6658,#0f4036);border:1px solid #34786a;text-align:center}
-.band h2{font-size:clamp(27px,4vw,40px);margin:0 0 12px;color:#f6df98}
-.band p{color:#d3e0d9;line-height:2;margin:0 auto 22px;max-width:680px}
-.band button,.band .button-link{background:var(--gold);border-radius:16px;padding:15px 28px;font-size:17px}
-.book{background:linear-gradient(160deg,#15352d,#0e241f);border-color:#315248;border-radius:22px}
-.cover{border-color:#37685b;background:radial-gradient(circle at 50% 35%,#d6ad5540,transparent 48%),linear-gradient(145deg,#1c6657,#102923)}
-.book h3{font-size:18px}.book p{color:#bdc9c2}
-.book .secondary{background:#21483e}
-.chip{background:#102923;border-color:#315248;color:#d9e2dc}.chip.active{background:#1b6658;color:#ffe39a;border-color:#438a79}
-.sort,.search input,.field input,.field select{background:#0a211b;border-color:#315248;color:var(--white)}
-.panel{background:#102923;border-color:#315248;border-radius:22px}
-.notice{background:#1a493e;color:#f3dda0}
-.modal{background:#102923;border-color:#487565}
-.footer{background:#082720;color:#c4d0c8;border-color:#29473f;padding:45px 5% 125px}
-.faq-list{display:grid;gap:12px}
-.faq-list details{background:#102923;border:1px solid #2b4b42;border-radius:16px;padding:18px 20px}
-.faq-list summary{font-weight:800;cursor:pointer;font-size:18px;color:#f6e9c8}
-.faq-list p{color:#b9c9c1;line-height:1.9;margin-bottom:0}
-.steps-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-.step-card{min-height:170px}
-.step-num{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:#1b6658;color:#fff;font-size:22px;font-weight:900}
-.bottom-cta{position:fixed;z-index:15;bottom:0;left:0;right:0;background:#082720f5;border-top:1px solid #285448;backdrop-filter:blur(14px);padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:22px}
-.bottom-cta strong{font-size:19px}.bottom-cta strong span{color:var(--gold)}
-.bottom-cta a{display:inline-block;background:var(--gold);color:#17251d;padding:14px 30px;border-radius:18px;font-weight:900;font-size:18px;box-shadow:0 5px 0 #b58e3d}
-@media(max-width:760px){.story-grid,.feature-grid,.color-grid{grid-template-columns:1fr}.steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:470px;padding:30px 23px;border-radius:23px}.hero h1{font-size:39px}.wrap{padding:16px 14px 125px}.section-head{margin-top:44px}.story-card,.feature-card,.step-card{min-height:unset}.bottom-cta{gap:14px;padding:11px 12px}.bottom-cta strong{font-size:16px}.bottom-cta a{padding:13px 22px;font-size:16px}}
-@media(max-width:390px){.steps-grid{grid-template-columns:1fr}.bottom-cta strong{font-size:14px}.bottom-cta a{font-size:15px;padding:12px 17px}}
-
-
-/* Reference-inspired mobile-first editorial sales page */
-.announcement{position:sticky;top:0;z-index:12;background:#092b24;color:#f0cf72;text-align:center;padding:11px 12px;font-weight:800;font-size:15px;border-bottom:1px solid #1e5145}
-header{top:42px;z-index:11;background:#071d18f2;padding:13px 5%;border-bottom:1px solid #25483e}
-.hero{min-height:610px;border:0;border-radius:0;padding:clamp(34px,7vw,78px);background:radial-gradient(ellipse at 15% 20%,#d6b65c26,transparent 38%),linear-gradient(155deg,#0e342b,#071d18 68%);box-shadow:none}
-.hero:after{content:"BOOKORA";font-size:clamp(60px,14vw,160px);color:#f2d58b0a}
-.hero h1{font-family:Georgia,Tahoma,serif;color:#f1d274;font-weight:900}
-.hero .eyebrow{border:0;border-radius:99px;background:#174c40;color:#f4d982;font-size:14px;letter-spacing:0}
-.hero .muted{font-size:clamp(17px,2vw,22px);line-height:2;color:#bdc9c2}
-.wrap{padding-top:0}
-.section-head{display:block;margin:75px 0 22px}
-.section-head h2{color:#f0d071;font-family:Georgia,Tahoma,serif;font-size:clamp(30px,4.5vw,43px);line-height:1.5}
-.section-intro{font-size:18px;line-height:2.1}
-.feature-grid{grid-template-columns:1fr;gap:22px}
-.feature-card{min-height:210px;border-radius:30px;padding:34px 28px;background:#122e27;border-color:#31554a}
-.feature-card:before{height:9px}
-.feature-card h3{font-size:clamp(22px,3vw,29px);margin:15px 0}
-.feature-card p{font-size:18px;line-height:2.05}
-.feature-card .symbol{font-size:37px;color:#f0d071}
-.feature-card:nth-child(1){--accent:#237565}.feature-card:nth-child(2){--accent:#d45f2e}.feature-card:nth-child(3){--accent:#7650a0}.feature-card:nth-child(4){--accent:#32649e}.feature-card:nth-child(5){--accent:#bd4778}.feature-card:nth-child(6){--accent:#b08a32}
-.band{margin:75px 0;padding:55px 28px;border-radius:0;background:#15594c;border:0;position:relative;overflow:hidden}
-.band:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,#ffffff0b 0 2px,transparent 3px);background-size:48px 48px;pointer-events:none}
-.band h2{font-family:Georgia,Tahoma,serif;font-size:clamp(30px,5vw,46px)}
-.book{border-radius:30px;padding:22px;background:#122e27;border:1px solid #31584d}
-.cover{height:300px;border-radius:17px;background-color:#15594c;border:1px solid #3c7769}
-.book h3{font-size:21px;line-height:1.6}
-.book p{font-size:16px;line-height:1.9;min-height:unset}
-.book-category{font-size:13px;background:#1a5549;color:#f2d58b}
-.price{font-size:22px}
-.book-actions{grid-template-columns:1fr 1fr}
-.book-actions .secondary{display:block;background:#204b40}
-.panel{padding:28px;border-radius:28px}
-.panel h2{color:#f0d071;font-size:30px}
-.faq-list details{border-radius:0;border:0;border-bottom:1px solid #34564c;background:transparent;padding:22px 4px}
-.faq-list summary{font-size:20px}
-.faq-list p{font-size:17px;line-height:2}
-.steps-grid{grid-template-columns:1fr}
-.step-card{border-radius:25px;padding:30px;min-height:190px}
-.step-card h3{font-size:24px}
-.step-card p{font-size:18px;line-height:2}
-.bottom-cta{padding:14px 18px;min-height:86px;background:#082b24}
-.bottom-cta strong{font-size:20px}
-.bottom-cta a{min-width:180px;text-align:center;border-radius:20px;padding:17px 26px;background:#f0d071;box-shadow:0 5px 0 #b58e3d}
-.footer{padding-bottom:125px}
-@media(max-width:700px){
- .announcement{font-size:14px;padding:10px 8px}
- header{top:39px;padding:12px 4%;gap:10px}
- header nav{display:none}
- .hero{min-height:600px;padding:45px 25px}
- .hero h1{font-size:42px;line-height:1.5}
- .hero .muted{font-size:18px}
- .wrap{padding:0 18px 120px}
- .section-head{margin:70px 0 20px}
- .feature-card{padding:32px 25px;min-height:210px}
- .feature-card h3{font-size:25px}
- .feature-card p{font-size:18px}
- .band{margin:70px -18px;padding:48px 25px}
- .grid{grid-template-columns:1fr;gap:24px}
- .book{padding:18px}
- .cover{height:340px}
- .book h3{font-size:22px}
- .book p{font-size:16px}
- .book-actions{grid-template-columns:1fr 1fr}
- .steps-grid{grid-template-columns:1fr}
- .bottom-cta{justify-content:space-around;gap:12px}
- .bottom-cta strong{font-size:17px}
- .bottom-cta a{min-width:0;padding:15px 22px;font-size:17px}
-}
-@media(max-width:390px){.hero h1{font-size:36px}.cover{height:290px}.bottom-cta strong{font-size:15px}.bottom-cta a{font-size:15px;padding:14px 17px}}
-
+:root{--bg:#0b211c;--deep:#082b25;--teal:#155d52;--teal2:#20796a;--gold:#f0cf70;--cream:#f5f0df;--muted:#b7c7c0;--line:#31564d;--orange:#d56835;--purple:#7951a0;--blue:#32649b;--pink:#b94370}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--cream);font-family:Tahoma,Arial,sans-serif}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{border:0;cursor:pointer;font-weight:800}
+.announcement{position:sticky;top:0;z-index:20;background:#082b25;padding:11px 14px;text-align:center;color:var(--gold);font-size:15px;font-weight:900;border-bottom:1px solid #1e5145}
+header{position:sticky;top:41px;z-index:19;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 5%;background:#0b211cf2;backdrop-filter:blur(12px);border-bottom:1px solid #28483f}.brand{font-size:26px;font-weight:1000;letter-spacing:2px}.brand span{color:var(--gold)}nav{display:flex;gap:22px;font-weight:700}nav a:hover{color:var(--gold)}.actions{display:flex;gap:8px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:#19251e;border-radius:18px;padding:15px 25px;font-weight:900;box-shadow:0 5px 0 #b58e3d}.btn.outline{background:transparent;color:var(--cream);border:2px solid #9bb0a7;box-shadow:none}.btn.dark{background:#155d52;color:white;box-shadow:0 5px 0 #0b433a}
+.wrap{max-width:1100px;margin:auto;padding:0 20px 125px}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:0 calc(50% - 50vw);padding:74px max(28px,calc((100vw - 1000px)/2)) 60px;min-height:730px;text-align:center;background:#155d52}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.34;background-image:radial-gradient(circle,transparent 0 42px,#65a19555 43px 45px,transparent 46px);background-size:164px 164px;background-position:0 0}
+.hero:after{content:"BOOKORA";position:absolute;z-index:-1;left:0;right:0;top:105px;color:#061d19;font-family:Georgia,serif;font-size:clamp(76px,18vw,180px);font-weight:900;letter-spacing:5px;opacity:.22;transform:rotate(-5deg)}
+.hero-inner{max-width:850px;margin:auto}.eyebrow{display:inline-block;color:var(--gold);font-weight:900;font-size:17px;margin:20px 0}.hero h1{font-family:Georgia,Tahoma,serif;color:#071f1a;font-size:clamp(58px,11vw,112px);line-height:1.15;margin:0 0 8px;text-shadow:0 2px #ffffff20}.hero h2{font-family:Georgia,Tahoma,serif;color:var(--gold);font-size:clamp(25px,4.5vw,43px);line-height:1.5;margin:0 0 18px}.hero p{font-size:clamp(18px,2.6vw,24px);line-height:2;color:#f0f1e8;margin:20px auto 28px;max-width:760px}
+.pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px auto 38px}.pill{border-radius:10px;padding:7px 22px;font-weight:900;font-size:16px;color:white;background:var(--teal2)}.pill:nth-child(2){background:var(--purple)}.pill:nth-child(3){background:var(--orange)}.pill:nth-child(4){background:var(--blue)}.pill:nth-child(5){background:var(--pink)}
+.hero-actions{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}.hero-points{display:flex;justify-content:center;gap:16px 28px;flex-wrap:wrap;margin:38px auto 0;color:#f6edcf;font-size:17px}.hero-points span:before{content:"✓";color:var(--gold);font-size:22px;margin-left:8px;font-weight:900}
+.hero-art{max-width:650px;margin:55px auto 0;padding:12px;border-radius:18px;background:#e8e5d5;box-shadow:0 12px 30px #001b17aa}.hero-art-inner{min-height:245px;border-radius:10px;background:linear-gradient(135deg,#e5f1e9,#c6ded5);display:grid;place-items:center;color:#1b5c50;padding:24px}.hero-art-inner strong{font-size:clamp(32px,6vw,58px);font-family:Georgia,Tahoma,serif}.hero-art-inner small{display:block;font-size:17px;margin-top:10px}
+.section{padding:62px 0 10px}.section-title{text-align:right;color:var(--gold);font-family:Georgia,Tahoma,serif;font-size:clamp(30px,5vw,44px);margin:0 0 12px}.section-intro{font-size:18px;line-height:2;color:var(--muted);margin:0 0 25px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.info-card{position:relative;overflow:hidden;background:#142f28;border:2px solid #31564d;border-radius:28px;padding:30px;min-height:190px}.info-card:before{content:"";position:absolute;left:0;right:0;top:0;height:9px;background:var(--accent,var(--teal2))}.info-card h3{font-size:25px;margin:8px 0 12px}.info-card p{font-size:18px;line-height:2;color:var(--muted);margin:0}
+.band{margin:65px -20px;padding:52px 25px;text-align:center;background:#155d52;position:relative;overflow:hidden}.band:before{content:"";position:absolute;inset:0;opacity:.25;background-image:radial-gradient(circle,transparent 0 35px,#8bc0b255 36px 38px,transparent 39px);background-size:150px 150px}.band>*{position:relative}.band h2{font-family:Georgia,Tahoma,serif;color:var(--gold);font-size:clamp(30px,5vw,44px);margin:0 0 12px}.band p{font-size:18px;line-height:2;color:#e2eee8;max-width:700px;margin:0 auto 24px}
+.search{display:flex;gap:10px;max-width:650px;margin:20px 0}.search input,.field input,.field select,.sort{background:#091e19;color:var(--cream);border:1px solid #42685d;border-radius:12px;padding:14px;width:100%;min-width:0}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:20px 0}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#15372e;color:#dbe5de;border:1px solid #42685d;border-radius:99px;padding:9px 15px}.chip.active{background:#1b7566;color:white;border-color:#55a595}.sort{width:auto;min-width:170px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.book{background:#142f28;border:1px solid #3a6558;border-radius:25px;padding:18px;overflow:hidden}.cover{height:290px;border-radius:15px;background:linear-gradient(145deg,#176456,#0b2c25);display:grid;place-items:center;color:var(--gold);font-size:60px;margin-bottom:15px;background-size:cover;background-position:center}.cover-mark{font-family:Georgia,serif;font-size:70px}.book-category{display:inline-block;background:#1d6254;color:#f5d77f;padding:6px 12px;border-radius:99px;font-size:13px}.book h3{font-size:22px;line-height:1.6;margin:12px 0 5px}.book p{font-size:16px;line-height:1.9;color:var(--muted);min-height:50px}.price{color:var(--gold);font-size:22px;font-weight:900;margin:12px 0}.book-actions{display:flex;gap:10px}.book-actions button{flex:1;border-radius:12px;padding:13px;background:var(--gold);color:#17251d}.book-actions .secondary{background:#205044;color:white}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.step{background:#142f28;border:2px solid #31564d;border-radius:25px;padding:25px;min-height:175px}.step-num{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#1b7566;font-size:24px;font-weight:900}.step h3{font-size:23px;margin:15px 0 8px}.step p{color:var(--muted);font-size:17px;line-height:1.9;margin:0}
+.faq details{border-bottom:1px solid #426257;padding:20px 5px}.faq summary{font-size:21px;font-weight:900;cursor:pointer}.faq p{color:var(--muted);font-size:17px;line-height:2}
+.panel{background:#142f28;border:1px solid #42685d;border-radius:25px;padding:25px;margin:28px 0}.panel h2{color:var(--gold)}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;margin:8px 0;color:#e9e3d3}.notice{background:#1b5548;padding:15px;border-radius:13px;line-height:2;margin:15px 0}.hidden{display:none!important}.cartline{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid #31564d}.qty{width:70px}.button-link{display:inline-block}
+.bottom-cta{position:fixed;z-index:30;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:24px;background:#082b25f5;border-top:1px solid #2e5a4f;padding:13px 16px;backdrop-filter:blur(14px)}.bottom-cta strong{font-size:20px}.bottom-cta strong span{color:var(--gold)}.bottom-cta a{min-width:190px;text-align:center;background:var(--gold);color:#18251e;border-radius:19px;padding:16px 25px;font-size:18px;font-weight:900;box-shadow:0 5px 0 #b58e3d}
+footer{text-align:center;color:var(--muted);padding:35px 15px 120px;background:#082b25}
+.modal-backdrop{position:fixed;inset:0;z-index:40;background:#000b;display:grid;place-items:center;padding:18px}.modal{width:min(520px,100%);max-height:85vh;overflow:auto;background:#142f28;border:1px solid #42685d;border-radius:22px;padding:22px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-cover{height:180px;border-radius:14px;display:grid;place-items:center;background:#155d52;color:var(--gold);font-size:58px;margin:15px 0}.icon-btn{background:#29483e;color:white;padding:10px;border-radius:10px}
+@media(max-width:700px){.announcement{font-size:14px}header{top:39px;padding:12px 4%}.brand{font-size:22px}nav{display:none}.wrap{padding:0 18px 120px}.hero{min-height:0;padding:48px 22px 35px}.hero h1{font-size:76px}.hero h2{font-size:29px}.hero p{font-size:18px}.hero:after{top:115px;font-size:76px}.hero-actions{gap:13px}.hero-actions .btn{flex:1;min-width:135px;padding:16px 12px}.hero-points{justify-content:flex-start;text-align:right;font-size:16px;line-height:1.7}.hero-art{margin-top:35px}.hero-art-inner{min-height:180px}.section{padding-top:48px}.cards,.steps{grid-template-columns:1fr}.info-card{min-height:190px;padding:29px 24px}.info-card h3{font-size:23px}.info-card p{font-size:17px}.band{margin:55px -18px;padding:45px 22px}.grid{grid-template-columns:1fr;gap:20px}.cover{height:340px}.book{padding:17px}.book h3{font-size:21px}.book-actions button{font-size:15px}.formgrid{grid-template-columns:1fr}.bottom-cta{justify-content:space-around;gap:12px}.bottom-cta strong{font-size:16px}.bottom-cta a{min-width:0;padding:15px 22px;font-size:16px}}
+@media(max-width:380px){.hero h1{font-size:62px}.cover{height:285px}.bottom-cta strong{font-size:14px}.bottom-cta a{font-size:15px;padding:14px 17px}}
 </style></head>
 <body>
-<div class="announcement">مكتبتك الرقمية — اختار كتابك وابدأ رحلتك مع المعرفة</div>
-<header><a class="brand" href="#">BOOK<span>ORA</span></a><nav><a href="#books" data-ar="المتجر" data-en="Store">المتجر</a><a href="#track" data-ar="متابعة الطلب" data-en="Order follow-up">متابعة الطلب</a></nav><div class="actions"><button class="secondary" id="lang">EN</button><button id="cartBtn">السلة (<span id="cartCount">0</span>)</button></div></header>
-<main class="wrap">
-<section class="hero"><div><div class="eyebrow" data-ar="مكتبتك الرقمية • تجربة قراءة مختلفة" data-en="YOUR DIGITAL LIBRARY • A BETTER READING EXPERIENCE">مكتبتك الرقمية • تجربة قراءة مختلفة</div><h1 data-ar="اكتشف عالمًا من الكتب<br><span class='gold'>في مكان واحد</span>" data-en="Explore a world of books<br><span class='gold'>in one place</span>">اكتشف عالمًا من الكتب<br><span class="gold">في مكان واحد</span></h1><p class="muted" data-ar="اختَر كتبك المفضلة، أرسل طلبك، وتابع حالة الشراء بسهولة." data-en="Choose your favorite books, submit your order and track it easily.">اختَر كتبك المفضلة، أرسل طلبك، وتابع حالة الشراء بسهولة.</p><div class="search"><input id="search" placeholder="ابحث عن كتاب..."><button onclick="renderBooks()">بحث</button></div><div class="trust-row"><span>✦ دفع آمن بمراجعة يدوية</span><span>✦ كتب رقمية فورية بعد الاعتماد</span><span>✦ دعم عبر WhatsApp</span></div></div></section>
-
-<section id="why-bookora">
-  <div class="section-head"><h2>ليه تختار <span class="gold">Bookora</span>؟</h2></div>
-  <p class="section-intro">مش مجرد مكان تشتري منه كتاب رقمي؛ دي تجربة بسيطة ومنظمة من أول ما تكتشف الكتاب لحد ما تستلمه.</p>
-  <div class="feature-grid">
-    <article class="feature-card"><div class="symbol">✦</div><h3>اختيارات متنوعة</h3><p>اكتشف كتب رقمية في مجالات مختلفة، واختار اللي يناسب اهتمامك ووقتك.</p></article>
-    <article class="feature-card"><div class="symbol">▣</div><h3>معاينة واضحة</h3><p>اقرأ وصف الكتاب وتفاصيله قبل ما تقرر تضيفه لسلة مشترياتك.</p></article>
-    <article class="feature-card"><div class="symbol">↗</div><h3>طلب في خطوات بسيطة</h3><p>اختار كتبك، اكتب بياناتك، وابعت الطلب من خلال WhatsApp.</p></article>
-    <article class="feature-card"><div class="symbol">₤</div><h3>طرق دفع محلية</h3><p>الدفع متاح عبر InstaPay أو Vodafone Cash مع مراجعة التحويل يدويًا.</p></article>
-    <article class="feature-card"><div class="symbol">✓</div><h3>مراجعة الطلب</h3><p>بنراجع تفاصيل الطلب وإيصال الدفع قبل تأكيد الاستلام.</p></article>
-    <article class="feature-card"><div class="symbol">♡</div><h3>دعم مباشر</h3><p>تقدر تتواصل معانا على WhatsApp لو عندك أي استفسار عن طلبك.</p></article>
-  </div>
+<div class="announcement">Bookora — كتبك المفضلة في مكان واحد • اطلب بسهولة واستلم رقميًا</div>
+<header><a class="brand" href="#">BOOK<span>ORA</span></a><nav><a href="#books">المكتبة</a><a href="#how">طريقة الطلب</a><a href="#faq">الأسئلة</a></nav><div class="actions"><button class="btn outline" id="lang">EN</button><button class="btn dark" id="cartBtn">السلة (<span id="cartCount">0</span>)</button></div></header>
+<main>
+<section class="hero"><div class="hero-inner">
+<div class="eyebrow">مكتبتك الرقمية • المعرفة أقرب مما تتخيل</div>
+<h1>Bookora</h1><h2>افتح كتابك.. وافتح لنفسك باب جديد</h2>
+<p>اكتشف كتب رقمية في مجالات مختلفة، اختار اللي يناسبك، واطلبه بخطوات بسيطة من غير تعقيد.</p>
+<div class="pills"><span class="pill">Books</span><span class="pill">Study</span><span class="pill">Knowledge</span><span class="pill">Skills</span><span class="pill">Digital</span></div>
+<div class="hero-actions"><a class="btn" href="#books">تصفح الكتب</a><a class="btn outline" href="#how">طريقة الطلب</a></div>
+<div class="hero-points"><span>اطلب من WhatsApp بسهولة</span><span>ادفع InstaPay أو فودافون كاش</span><span>استلام رقمي بعد التأكيد</span></div>
+<div class="hero-art"><div class="hero-art-inner"><div><strong>كل كتاب.. بداية حكاية</strong><small>اختار كتابك القادم من Bookora</small></div></div></div>
+</div></section>
+<div class="wrap">
+<section class="section"><h2 class="section-title">ليه تختار Bookora؟</h2><p class="section-intro">تجربة شراء بسيطة وواضحة، من اكتشاف الكتاب لحد استلام نسختك الرقمية.</p>
+<div class="cards">
+<article class="info-card" style="--accent:#237565"><h3>مكتبة متنوعة</h3><p>اكتشف كتب في مجالات مختلفة واختر المحتوى اللي يناسب اهتماماتك.</p></article>
+<article class="info-card" style="--accent:#d56835"><h3>تفاصيل واضحة</h3><p>شوف وصف كل كتاب وسعره قبل ما تضيفه للسلة وتكمل طلبك.</p></article>
+<article class="info-card" style="--accent:#7951a0"><h3>طلب في خطوات</h3><p>اختار كتبك، اكتب بياناتك، وابعت طلبك بسهولة من الموبايل.</p></article>
+<article class="info-card" style="--accent:#32649b"><h3>طرق دفع محلية</h3><p>الدفع متاح عن طريق InstaPay أو Vodafone Cash.</p></article>
+<article class="info-card" style="--accent:#b94370"><h3>مراجعة آمنة</h3><p>بنراجع تفاصيل الطلب والتحويل قبل تأكيد الاستلام.</p></article>
+<article class="info-card" style="--accent:#b18b32"><h3>دعم مباشر</h3><p>لو عندك سؤال عن كتاب أو طلبك، تواصل معانا على WhatsApp.</p></article>
+</div></section>
+<section class="band"><h2>المعرفة تبدأ بصفحة</h2><p>اختار كتابك القادم وخلي وقتك مليان بحاجة مفيدة.</p><a class="btn" href="#books">اكتشف المكتبة الآن</a></section>
+<section class="section" id="books"><h2 class="section-title">اختار كتابك</h2><p class="section-intro">تصفح الكتب المتاحة، وابحث بالاسم أو اختار القسم اللي يهمك.</p><div class="search"><input id="search" placeholder="ابحث عن كتاب..."><button class="btn" onclick="renderBooks()">بحث</button></div><div class="toolbar"><div id="categoryChips" class="chips"></div><select id="sortBooks" class="sort"><option value="new">الأحدث أولاً</option><option value="price-low">السعر: الأقل</option><option value="price-high">السعر: الأعلى</option><option value="title">الاسم أبجديًا</option></select></div><div class="section-intro" id="bookCount"></div><div id="booksGrid" class="grid"></div></section>
+<section class="band"><h2>كتاب واحد ممكن يفتحلك طريق جديد</h2><p>تصفح مجموعتنا واختار المحتوى اللي محتاجه دلوقتي.</p><a class="btn" href="#books">شوف الكتب</a></section>
+<section class="section" id="how"><h2 class="section-title">تطلب كتابك إزاي؟</h2><p class="section-intro">أربع خطوات بسيطة من الاختيار لحد الاستلام.</p><div class="steps">
+<article class="step"><span class="step-num">1</span><h3>اختار الكتاب</h3><p>تصفح المكتبة وافتح تفاصيل الكتاب اللي عجبك.</p></article>
+<article class="step"><span class="step-num">2</span><h3>أضفه للسلة</h3><p>اجمع الكتب اللي محتاجها وراجع إجمالي طلبك.</p></article>
+<article class="step"><span class="step-num">3</span><h3>ابعت الطلب وادفع</h3><p>اكتب بياناتك واختار وسيلة الدفع المناسبة ليك.</p></article>
+<article class="step"><span class="step-num">4</span><h3>استلم كتابك</h3><p>ابعت إيصال التحويل على WhatsApp وبعد المراجعة يتم إرسال الكتاب.</p></article>
+</div></section>
+<section class="section"><h2 class="section-title">الدفع والاستلام</h2><div class="cards">
+<article class="info-card" style="--accent:#c51f28"><h3>Vodafone Cash</h3><p>حوّل المبلغ على الرقم الموضح عند إتمام الطلب، وابعت صورة التحويل على WhatsApp.</p></article>
+<article class="info-card" style="--accent:#32649b"><h3>InstaPay</h3><p>استخدم بيانات الدفع الموضحة في صفحة إتمام الطلب، ثم أرسل إيصال التحويل للمراجعة.</p></article>
+</div></section>
+<section class="section faq" id="faq"><h2 class="section-title">أسئلة بتتسأل كتير</h2>
+<details><summary>إزاي أطلب كتاب؟</summary><p>اختار الكتاب واضغط أضف للسلة، وبعدها اكتب بياناتك وأرسل الطلب.</p></details>
+<details><summary>إيه طرق الدفع المتاحة؟</summary><p>InstaPay أو Vodafone Cash، وإرسال إيصال التحويل بيكون على WhatsApp.</p></details>
+<details><summary>إمتى بستلم الملف؟</summary><p>بعد مراجعة الطلب والتأكد من التحويل، هنبعتلك تفاصيل الاستلام.</p></details>
+<details><summary>هل أقدر أسأل قبل ما أشتري؟</summary><p>طبعًا، تواصل معانا على WhatsApp واسأل عن تفاصيل أي كتاب.</p></details>
 </section>
-<section class="band">
-  <h2>المعرفة تبدأ بخطوة</h2>
-  <p>اختار كتابك الجاي، وخلي الوصول للمحتوى اللي يهمك أسهل وأسرع.</p>
-  <a class="button-link" href="#books">تصفح الكتب الآن</a>
-</section>
-
-<section id="books"><div class="section-head"><h2 data-ar="اكتشف الكتب" data-en="Explore books">اكتشف الكتب</h2><span class="muted" id="bookCount"></span></div><div class="toolbar"><div id="categoryChips" class="chips"></div><select id="sortBooks" class="sort" aria-label="ترتيب الكتب"><option value="new">الأحدث أولاً</option><option value="price-low">السعر: الأقل</option><option value="price-high">السعر: الأعلى</option><option value="title">الاسم أبجديًا</option></select></div><div id="booksGrid" class="grid"></div></section>
-
-<section id="how-it-works">
- <div class="section-head"><h2>تطلب كتابك إزاي؟</h2></div>
- <p class="section-intro">رحلة الطلب واضحة من أول الاختيار لحد استلام الكتاب بعد تأكيد الدفع.</p>
- <div class="steps-grid">
-  <article class="step-card"><div class="step-num">1</div><h3>اختار الكتاب</h3><p>تصفح المكتبة وافتح تفاصيل الكتاب اللي عجبك.</p></article>
-  <article class="step-card"><div class="step-num">2</div><h3>أضفه للسلة</h3><p>حدد الكتب والكميات، وبعدها انتقل لإتمام الطلب.</p></article>
-  <article class="step-card"><div class="step-num">3</div><h3>ابعت الطلب وادفع</h3><p>اكتب بياناتك واختار InstaPay أو Vodafone Cash.</p></article>
-  <article class="step-card"><div class="step-num">4</div><h3>استلم كتابك</h3><p>ابعت إيصال التحويل على WhatsApp، وبعد المراجعة يتم تأكيد الاستلام.</p></article>
- </div>
-</section>
-<section class="band">
- <h2>جاهز تكتشف كتابك القادم؟</h2>
- <p>ابدأ من المكتبة، اختار اللي يناسبك، وكمّل طلبك في دقائق.</p>
- <a class="button-link" href="#books">ابدأ التصفح</a>
-</section>
-<section id="faq">
- <div class="section-head"><h2>أسئلة بتتسأل كتير</h2></div>
- <div class="faq-list">
-  <details><summary>إزاي أطلب كتاب؟</summary><p>اختار الكتاب واضغط أضف للسلة، وبعدها اكتب بياناتك واضغط إرسال الطلب عبر WhatsApp.</p></details>
-  <details><summary>إيه طرق الدفع المتاحة؟</summary><p>تقدر تدفع عن طريق InstaPay أو Vodafone Cash، وتبعت إيصال التحويل في محادثة WhatsApp.</p></details>
-  <details><summary>إمتى بستلم الكتاب؟</summary><p>بعد مراجعة الطلب والتأكد من التحويل، هنتواصل معاك لتأكيد طريقة الاستلام.</p></details>
-  <details><summary>هل أقدر أسأل عن كتاب قبل الشراء؟</summary><p>طبعًا، تواصل معانا على WhatsApp واسأل عن تفاصيل الكتاب قبل ما تطلبه.</p></details>
- </div>
-</section>
-<section class="band">
- <h2>Bookora — مكتبتك الرقمية</h2>
- <p>كتب تختارها بسهولة، وطلب تتابعه بخطوات واضحة.</p>
- <a class="button-link" href="#books">تصفح المكتبة</a>
-</section>
-
-<section id="cartPanel" class="panel hidden"><div class="section-head"><h2 data-ar="سلة مشترياتك" data-en="Your cart">سلة مشترياتك</h2><button class="secondary" id="closeCart">إغلاق</button></div><div id="cartItems"></div><h3 id="cartTotal"></h3><button id="checkoutBtn" data-ar="إتمام الطلب" data-en="Checkout">إتمام الطلب</button></section>
-<section id="checkout" class="panel hidden">
-<div class="section-head"><h2 data-ar="إتمام الطلب" data-en="Place your order">إتمام الطلب</h2></div>
-<p class="muted" data-ar="GitHub Pages لا يستقبل الطلبات أو الملفات على خادم. جهّز طلبك هنا ثم أرسله عبر WhatsApp، وأرسل إيصال التحويل في المحادثة ليتم مراجعته يدويًا." data-en="GitHub Pages cannot receive orders or uploaded files on a server. Prepare your order here, send it via WhatsApp, then send your transfer receipt in the chat for manual review.">GitHub Pages لا يستقبل الطلبات أو الملفات على خادم. جهّز طلبك هنا ثم أرسله عبر WhatsApp، وأرسل إيصال التحويل في المحادثة ليتم مراجعته يدويًا.</p>
-<div id="paymentInfo" class="notice">بيانات الدفع ستظهر هنا بعد إعدادها في ملف assets/store-config.js.</div>
-<form id="orderForm"><div class="formgrid">
-<div class="field"><label data-ar="الاسم بالكامل" data-en="Full name">الاسم بالكامل</label><input name="name" required minlength="2"></div>
-<div class="field"><label data-ar="رقم WhatsApp" data-en="WhatsApp number">رقم WhatsApp</label><input name="phone" required placeholder="+2010..."></div>
-<div class="field"><label data-ar="طريقة الدفع" data-en="Payment method">طريقة الدفع</label><select name="paymentMethod"><option value="instapay">InstaPay</option><option value="vodafone_cash">Vodafone Cash</option></select></div>
-</div><button type="submit" id="submitOrder" data-ar="إرسال الطلب عبر WhatsApp" data-en="Send order via WhatsApp">إرسال الطلب عبر WhatsApp</button><div id="orderMsg" class="muted" style="margin-top:12px"></div></form>
-</section>
-<section id="track" class="panel">
-<h2 data-ar="متابعة طلبك" data-en="Order follow-up">متابعة طلبك</h2>
-<p class="muted" data-ar="تتبع حالة الطلب تلقائيًا ولوحة الإدارة غير متاحين على GitHub Pages. لمتابعة طلبك، تواصل معنا عبر WhatsApp مع ذكر اسمك وتفاصيل الطلب." data-en="Automatic order tracking and an admin dashboard are not available on GitHub Pages. Contact us on WhatsApp with your name and order details to follow up.">تتبع حالة الطلب تلقائيًا ولوحة الإدارة غير متاحين على GitHub Pages. لمتابعة طلبك، تواصل معنا عبر WhatsApp مع ذكر اسمك وتفاصيل الطلب.</p>
-<a id="supportLink" class="button-link" href="#checkout">تواصل لإتمام الطلب</a>
-</section>
-</main><div id="bookModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="تفاصيل الكتاب"><div class="modal"><div class="modal-head"><h2 id="modalTitle">تفاصيل الكتاب</h2><button class="icon-btn" id="closeModal" type="button">✕</button></div><div class="modal-cover" id="modalMark">B</div><div id="modalCategory" class="book-category"></div><p id="modalDescription" class="muted"></p><div id="modalPrice" class="price"></div><button id="modalAdd" type="button" style="width:100%">أضف للسلة</button></div></div><div class="bottom-cta"><strong>اكتشف كتب Bookora <span>الآن</span></strong><a href="#books">تصفح الكتب</a></div>
-<footer class="footer">© Bookora — Digital Books Store</footer>
+<section class="band"><h2>ابدأ رحلتك مع Bookora</h2><p>كتابك الجاي مستنيك. اختار، اطلب، واستمتع بالقراءة.</p><a class="btn" href="#books">اطلب كتابك الآن</a></section>
+<section id="cartPanel" class="panel hidden"><div class="section-title"><h2>سلة مشترياتك</h2><button class="btn dark" id="closeCart">إغلاق</button></div><div id="cartItems"></div><h3 id="cartTotal"></h3><button class="btn" id="checkoutBtn">إتمام الطلب</button></section>
+<section id="checkout" class="panel hidden"><h2>إتمام الطلب</h2><p class="section-intro">اكتب بياناتك واختار طريقة الدفع، وبعدها ابعت إيصال التحويل في WhatsApp.</p><div id="paymentInfo" class="notice"></div><form id="orderForm"><div class="formgrid">
+<div class="field"><label>الاسم بالكامل</label><input name="name" required minlength="2"></div><div class="field"><label>رقم WhatsApp</label><input name="phone" required placeholder="+2010..."></div><div class="field"><label>طريقة الدفع</label><select name="paymentMethod"><option value="instapay">InstaPay</option><option value="vodafone_cash">Vodafone Cash</option></select></div>
+</div><button class="btn" type="submit" id="submitOrder">إرسال الطلب عبر WhatsApp</button><div id="orderMsg" class="section-intro"></div></form></section>
+<section id="track" class="panel"><h2>متابعة طلبك</h2><p class="section-intro">لو محتاج تتابع طلبك أو عندك استفسار، تواصل معانا مباشرة.</p><a id="supportLink" class="btn" href="#checkout">تواصل معنا</a></section>
+</div></main>
+<div id="bookModal" class="modal-backdrop hidden" role="dialog" aria-modal="true"><div class="modal"><div class="modal-head"><h2 id="modalTitle">تفاصيل الكتاب</h2><button class="icon-btn" id="closeModal">✕</button></div><div class="modal-cover" id="modalMark">B</div><div id="modalCategory" class="book-category"></div><p id="modalDescription"></p><div id="modalPrice" class="price"></div><button class="btn" id="modalAdd" style="width:100%">أضف للسلة</button></div></div>
+<div class="bottom-cta"><strong>Bookora <span>مكتبتك الرقمية</span></strong><a href="#books">تصفح الكتب</a></div><footer>© Bookora — مكتبتك الرقمية</footer>
 <script src="./assets/store-config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const db=window.supabase.createClient(configUrl(),configKey());
 function configUrl(){return (window.BOOKORA_CONFIG||{}).supabaseUrl||""}
