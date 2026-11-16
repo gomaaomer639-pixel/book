@@ -1,33 +1,18 @@
-# Bookora — GitHub Pages edition
+# Bookora — GitHub Pages + Supabase
 
-نسخة Static مخصصة للنشر على GitHub Pages فقط، دون Render أو Node.js أو npm.
+The storefront stays on GitHub Pages. It loads active books from Supabase and keeps the existing `data/products.json` catalog visible as a compatibility fallback. Existing order creation through WhatsApp and order review in the admin panel remain available.
 
-## المتاح
-- واجهة عربية/إنجليزية، عرض الكتب والبحث والتصفية والترتيب.
-- تفاصيل الكتب وسلة مشتريات وحساب الإجمالي.
-- تجهيز رسالة الطلب وفتح WhatsApp لإرسالها يدويًا.
-- عرض بيانات InstaPay وVodafone Cash بعد إدخالها في `assets/store-config.js`.
+## Book management
 
-## غير المتاح على GitHub Pages وحده
-لا يمكن توفير لوحة إدارة آمنة، أو قاعدة بيانات، أو استقبال إيصالات ورفعها إلى خادم، أو اعتماد الطلبات وتتبعها تلقائيًا، أو حماية وتنزيل ملفات الكتب المدفوعة. العميل يرسل الطلب وإيصال التحويل عبر WhatsApp وتتم المراجعة يدويًا خارج الموقع. لا تضع كتبًا مدفوعة أو خاصة داخل مستودع عام.
+Open `/admin.html` and sign in with the existing authorized Supabase admin account. The panel supports adding and editing Arabic and English titles and descriptions, category, integer EGP price, cover and PDF uploads, publish/hide, and deletion. Files use the existing `bookora-covers` and `bookora-books` storage buckets.
 
-## تعديل الكتب
-عدّل `data/products.json`. البيانات الحالية أمثلة تجريبية من بيانات البداية في المشروع السابق؛ استبدلها بكتبك الفعلية قبل الإعلان.
+## Existing Supabase setup
 
-## إعداد التواصل والدفع
-عدّل `assets/store-config.js`:
-- `whatsappNumber`: رقم دولي بدون + أو مسافات، مثال مصر `2010XXXXXXXX`.
-- `instapayAddress`: عنوان InstaPay العام.
-- `vodafoneCashNumber`: رقم Vodafone Cash.
+The GitHub update leaves `assets/store-config.js`, `data/products.json`, and the repository's existing `supabase-bookora-setup.sql` unchanged. No SQL is run or published. The setup SQL included in this review folder is not part of the deployment; do not run it again. Book management expects the existing `products` table and storage policies to be configured in Supabase; current order policies stay untouched. Admin authorization is enforced by Supabase RLS for users whose JWT `app_metadata.role` is `admin`.
 
-كل ما في هذا الملف علني. لا تضع كلمات مرور أو مفاتيح API أو معلومات سرية.
+The browser config contains only public settings and the publishable Supabase key. Never add passwords or a `service_role` key.
 
-## النشر على GitHub Pages
-1. ارفع **كل محتويات هذا المجلد** مباشرة إلى جذر مستودع `bookora` على الفرع `main`.
-2. تأكد أن `index.html` ظاهر في الصفحة الرئيسية للمستودع بجوار مجلدي `assets` و`data`.
-3. افتح `Settings` ثم `Pages`.
-4. في `Build and deployment` اختر `Deploy from a branch`.
-5. اختر الفرع `main` والمجلد `/(root)` ثم اضغط `Save`.
-6. انتظر اكتمال النشر، ثم افتح `https://gomaaomer639-pixel.github.io/bookora/`.
+## Deploy
 
-ضع أغلفة تملك حق استخدامها داخل `assets/covers/` وأضف اسم الملف إلى `cover_file` في سجل الكتاب.
+Publish the repository root from `main` using GitHub Pages. Verify the storefront at `/book/` and the admin panel at `/book/admin.html`. The compatibility catalog is read-only until its books are imported into `products`; records already present in Supabase are deduplicated against it by title.
+
