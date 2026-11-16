@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title_ar": "أساسيات إدارة الأعمال",
+    "title_en": "Business Essentials",
+    "description_ar": "مدخل عملي إلى مفاهيم الإدارة والأعمال.",
+    "description_en": "A practical introduction to management and business.",
+    "category": "أعمال",
+    "price": 120
+  },
+  {
+    "id": 2,
+    "title_ar": "مدخل إلى عالم التكنولوجيا",
+    "title_en": "Introduction to Technology",
+    "description_ar": "مفاهيم تقنية تساعدك على فهم العالم الرقمي.",
+    "description_en": "Core concepts for understanding the digital world.",
+    "category": "تكنولوجيا",
+    "price": 95
+  },
+  {
+    "id": 3,
+    "title_ar": "تبسيط العلوم الحديثة",
+    "title_en": "Modern Science Simplified",
+    "description_ar": "رحلة مبسطة في أفكار علمية أساسية.",
+    "description_en": "A simple journey through essential scientific ideas.",
+    "category": "علوم",
+    "price": 110
+  },
+  {
+    "id": 4,
+    "title_ar": "خطوات نحو تطوير الذات",
+    "title_en": "Steps to Self Growth",
+    "description_ar": "أفكار وأدوات لبناء عادات أفضل.",
+    "description_en": "Ideas and tools for building better habits.",
+    "category": "تطوير الذات",
+    "price": 85
+  }
+]
