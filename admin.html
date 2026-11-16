@@ -20,6 +20,9 @@
 <section id="dashboard" class="hidden">
 <div class="topline"><div><h1>طلبات Bookora</h1><p class="muted">الطلبات وإدارة حالتها وملاحظات الأدمن.</p></div><button id="refresh" class="secondary">تحديث</button></div>
 <div id="orders" class="panel"><p class="muted">جاري تحميل الطلبات...</p></div>
+<div class="topline"><div><h2>إدارة الكتب</h2><p class="muted">أضف الكتب وعدّل بياناتها وملفاتها أو أخفها من المتجر.</p></div><button id="newProduct">كتاب جديد</button></div>
+<section class="panel hidden" id="productEditor"><h2 id="editorTitle">كتاب جديد</h2><form id="productForm"><input type="hidden" id="productId"><div class="row"><div><label>الاسم بالعربية</label><input id="titleAr" required maxlength="200"></div><div><label>الاسم بالإنجليزية</label><input id="titleEn" required maxlength="200"></div></div><div class="row"><div><label>الوصف بالعربية</label><textarea id="descriptionAr" rows="3"></textarea></div><div><label>الوصف بالإنجليزية</label><textarea id="descriptionEn" rows="3"></textarea></div></div><div class="row"><div><label>التصنيف</label><input id="category" required maxlength="100"></div><div><label>السعر بالجنيه المصري</label><input id="price" type="number" min="0" step="1" required></div></div><div class="row"><div><label>غلاف الكتاب (صورة)</label><input id="coverFile" type="file" accept="image/*"></div><div><label>ملف الكتاب (PDF)</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div></div><label class="row" style="justify-content:flex-start"><input id="published" type="checkbox" checked style="width:auto"> منشور في المتجر</label><div class="row"><button type="submit" id="saveProduct">حفظ الكتاب</button><button type="button" id="cancelProduct" class="secondary">إلغاء</button></div><p id="productMsg" class="muted"></p></form></section>
+<section class="panel" id="products"><p class="muted">جاري تحميل الكتب...</p></section>
 </section>
 </main>
 <script>
@@ -52,10 +55,30 @@ async function loadOrders(){
   if(error){result.textContent=error.message;result.className="result error"}else{result.textContent="تم حفظ التحديث";result.className="result success"}
  }));
 }
+const productFields="id,title_ar,title_en,description_ar,description_en,category,price,book_file,cover_file,active,created_at";
+async function loadProducts(){
+ const box=$("#products");box.innerHTML='<p class="muted">جاري تحميل الكتب...</p>';
+ const {data,error}=await client.from("products").select(productFields).order("created_at",{ascending:false});
+ if(error){box.innerHTML='<p class="error">'+safe(error.message)+'</p>';return}
+ if(!data?.length){box.innerHTML='<p class="muted">لا توجد كتب. أضف كتابك الأول.</p>';return}
+ const pdfLinks=await Promise.all(data.map(async p=>p.book_file?(await client.storage.from('bookora-books').createSignedUrl(p.book_file,300)).data?.signedUrl||'': ''));
+ box.innerHTML=data.map((p,i)=>'<article class="order" data-id="'+safe(p.id)+'"><div class="topline"><div><h3>'+safe(p.title_ar)+'</h3><small>'+safe(p.title_en)+' · '+safe(p.category)+' · '+money(p.price)+'</small></div><strong>'+(p.active?'منشور':'مخفي')+'</strong></div><p>'+safe(p.description_ar||'')+'</p><div class="row"><button class="editProduct">تعديل</button><button class="toggleProduct secondary">'+(p.active?'إخفاء':'نشر')+'</button><button class="deleteProduct secondary">حذف</button>'+(pdfLinks[i]?'<a target="_blank" rel="noopener" href="'+safe(pdfLinks[i])+'">فتح PDF</a>':'<span class="muted">'+(p.book_file?'تعذر إنشاء رابط مؤقت للـ PDF':'لا يوجد PDF')+'</span>')+'</div></article>').join('');
+ box.querySelectorAll('.editProduct').forEach(b=>b.onclick=()=>editProduct(data.find(x=>String(x.id)===b.closest('.order').dataset.id)));
+ box.querySelectorAll('.toggleProduct').forEach(b=>b.onclick=async()=>{const p=data.find(x=>String(x.id)===b.closest('.order').dataset.id);const {error}=await client.from('products').update({active:!p.active}).eq('id',p.id);if(error)alert(error.message);else loadProducts()});
+ box.querySelectorAll('.deleteProduct').forEach(b=>b.onclick=async()=>{const p=data.find(x=>String(x.id)===b.closest('.order').dataset.id);if(!confirm('حذف الكتاب نهائيًا؟'))return;const {error}=await client.from('products').delete().eq('id',p.id);if(error)alert(error.message);else{const files=[p.book_file&&{bucket:'bookora-books',path:p.book_file},p.cover_file&&{bucket:'bookora-covers',path:p.cover_file}].filter(Boolean);for(const f of files)await client.storage.from(f.bucket).remove([f.path]);loadProducts()}});
+}
+function editProduct(p){$("#productForm").reset();$("#productId").value=p.id;$("#titleAr").value=p.title_ar||'';$("#titleEn").value=p.title_en||'';$("#descriptionAr").value=p.description_ar||'';$("#descriptionEn").value=p.description_en||'';$("#category").value=p.category||'';$("#price").value=p.price;$("#published").checked=!!p.active;$("#editorTitle").textContent='تعديل كتاب';$("#productEditor").classList.remove('hidden');window.scrollTo({top:$("#productEditor").offsetTop,behavior:'smooth'})}
+$("#newProduct").onclick=()=>{ $("#productForm").reset();$("#productId").value='';$("#published").checked=true;$("#editorTitle").textContent='كتاب جديد';$("#productEditor").classList.remove('hidden')};
+$("#cancelProduct").onclick=()=>$("#productEditor").classList.add('hidden');
+$("#productForm").onsubmit=async e=>{e.preventDefault();const msg=$("#productMsg"),button=$("#saveProduct");button.disabled=true;msg.textContent='جارٍ الحفظ...';try{const price=Number($("#price").value);if(!Number.isInteger(price)||price<0)throw new Error('السعر يجب أن يكون رقمًا صحيحًا غير سالب');let id=$("#productId").value;if(!id){const {data,error}=await client.from('products').insert({title_ar:$("#titleAr").value.trim(),title_en:$("#titleEn").value.trim(),description_ar:$("#descriptionAr").value.trim(),description_en:$("#descriptionEn").value.trim(),category:$("#category").value.trim(),price,active:$("#published").checked}).select('id').single();if(error)throw error;id=data.id}
+ const current={title_ar:$("#titleAr").value.trim(),title_en:$("#titleEn").value.trim(),description_ar:$("#descriptionAr").value.trim(),description_en:$("#descriptionEn").value.trim(),category:$("#category").value.trim(),price,active:$("#published").checked};
+ for(const [input,field,bucket,prefix,type] of [["#coverFile","cover_file","bookora-covers","covers","image/"],["#pdfFile","book_file","bookora-books","pdfs","application/pdf"]]){const file=$(input).files[0];if(!file)continue;if(type==='application/pdf'&&file.type!=='application/pdf'&&!file.name.toLowerCase().endsWith('.pdf'))throw new Error('اختر ملف PDF صالحًا');if(type==='image/'&&!file.type.startsWith('image/'))throw new Error('اختر صورة صالحة');const path=prefix+'/'+id+'/'+Date.now()+'-'+file.name.replace(/[^\w.-]/g,'_');const contentType=file.type||(type==='application/pdf'?'application/pdf':'image/jpeg');const {error:upError}=await client.storage.from(bucket).upload(path,file,{upsert:false,contentType});if(upError)throw upError;current[field]=path}
+ const {error}=await client.from('products').update(current).eq('id',id);if(error)throw error;msg.textContent='تم حفظ الكتاب';msg.className='success';$("#productEditor").classList.add('hidden');await loadProducts()
+ }catch(error){msg.textContent=error.message;msg.className='error'}finally{button.disabled=false}};
 async function syncSession(){
  if(!client){showError(loginMsg,"بيانات Supabase غير مضبوطة في assets/store-config.js");return}
  const {data:{session}}=await client.auth.getSession();
- if(session){loginPanel.classList.add("hidden");dashboard.classList.remove("hidden");$("#logout").classList.remove("hidden");await loadOrders()}
+ if(session){loginPanel.classList.add("hidden");dashboard.classList.remove("hidden");$("#logout").classList.remove("hidden");await Promise.all([loadOrders(),loadProducts()])}
 }
 $("#loginForm").addEventListener("submit",async e=>{
  e.preventDefault();loginMsg.textContent="جارٍ تسجيل الدخول...";
@@ -68,3 +91,4 @@ $("#refresh").onclick=loadOrders;
 syncSession();
 </script>
 </body></html>
+
