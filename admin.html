@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bookora | Admin</title>
+<style>
+:root{color-scheme:dark;--bg:#090909;--panel:#151515;--line:#303030;--gold:#d6ad55;--muted:#aaa}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f4ed;font-family:Arial,Tahoma,sans-serif}header{padding:18px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.brand{font-size:24px;font-weight:900}.brand span{color:var(--gold)}main{max-width:1100px;margin:30px auto;padding:0 16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}h1,h2{margin-top:0}input,select,textarea{width:100%;padding:12px;background:#0d0d0d;border:1px solid var(--line);border-radius:9px;color:white;font:inherit;margin:7px 0 14px}button{border:0;border-radius:9px;padding:11px 16px;background:var(--gold);color:#17120a;font-weight:bold;cursor:pointer}button.secondary{background:#333;color:#fff}.muted{color:var(--muted);line-height:1.7}.hidden{display:none!important}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.order{border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}.order h3{margin:0 0 8px}.order pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#ddd;font:inherit}.status{max-width:220px}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.error{color:#ff9b9b}.success{color:#8ce0a8}a{color:var(--gold)}small{color:var(--muted)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header><a class="brand" href="./">BOOK<span>ORA</span> <small>ADMIN</small></a><button id="logout" class="secondary hidden">تسجيل خروج</button></header>
+<main>
+<section id="loginPanel" class="panel">
+<h1>دخول الأدمن</h1><p class="muted">سجّل الدخول بالبريد المصرّح له فقط.</p>
+<form id="loginForm"><label>البريد الإلكتروني</label><input id="email" type="email" value="gomaaomer639@gmail.com" required autocomplete="username"><label>كلمة المرور</label><input id="password" type="password" required autocomplete="current-password"><button type="submit">دخول</button><p id="loginMsg" class="muted"></p></form>
+</section>
+<section id="dashboard" class="hidden">
+<div class="topline"><div><h1>طلبات Bookora</h1><p class="muted">الطلبات وإدارة حالتها وملاحظات الأدمن.</p></div><button id="refresh" class="secondary">تحديث</button></div>
+<div id="orders" class="panel"><p class="muted">جاري تحميل الطلبات...</p></div>
+</section>
+</main>
+<script>
+const cfg=window.BOOKORA_CONFIG||{};
+const client=window.supabase?.createClient(cfg.supabaseUrl||"",cfg.supabaseAnonKey||"");
+const $=s=>document.querySelector(s);
+const loginPanel=$("#loginPanel"),dashboard=$("#dashboard"),loginMsg=$("#loginMsg");
+function showError(el,msg){el.textContent=msg;el.className="error"}
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(v){return Number(v||0).toLocaleString("ar-EG")+" ج.م"}
+async function loadOrders(){
+ const box=$("#orders");box.innerHTML='<p class="muted">جاري تحميل الطلبات...</p>';
+ const {data,error}=await client.from("orders").select("*").order("created_at",{ascending:false}).limit(100);
+ if(error){box.innerHTML='<p class="error">'+safe(error.message)+'</p>';return}
+ if(!data?.length){box.innerHTML='<p class="muted">لا توجد طلبات حتى الآن.</p>';return}
+ box.innerHTML=data.map(o=>{
+  const items=Array.isArray(o.items_json)?o.items_json:[];
+  const itemText=items.map(i=>'- '+(i.title||i.product||'كتاب')+' × '+(i.qty||1)).join('\n');
+  const date=o.created_at?new Date(o.created_at).toLocaleString("ar-EG"):"—";
+  return '<article class="order" data-id="'+safe(o.id)+'"><div class="topline"><div><h3>طلب #'+safe(String(o.id).slice(0,8))+'</h3><small>'+safe(date)+'</small></div><strong>'+money(o.total)+'</strong></div>'+
+   '<p>العميل: '+safe(o.customer_name)+' — '+safe(o.phone)+'</p><p>الدفع: '+safe(o.payment_method)+'</p><pre>'+safe(itemText)+'</pre>'+
+   '<p>الإيصال: '+(o.receipt_file?'<a href="'+safe(o.receipt_file)+'" target="_blank" rel="noopener">فتح الإيصال</a>':'<span class="muted">يرسله العميل عبر WhatsApp</span>')+'</p>'+
+   '<div class="row"><div><label>حالة الطلب</label><select class="status"><option value="pending" '+(o.status==="pending"?"selected":"")+'>قيد المراجعة</option><option value="approved" '+(o.status==="approved"?"selected":"")+'>مقبول</option><option value="rejected" '+(o.status==="rejected"?"selected":"")+'>مرفوض</option><option value="completed" '+(o.status==="completed"?"selected":"")+'>مكتمل</option></select></div><div><label>ملاحظة الأدمن</label><input class="note" value="'+safe(o.admin_note||"")+'" placeholder="ملاحظة داخلية"></div><div style="flex:0 0 auto;align-self:end"><button class="save">حفظ</button></div></div><p class="muted result"></p></article>';
+ }).join("");
+ box.querySelectorAll(".save").forEach(btn=>btn.addEventListener("click",async()=>{
+  const card=btn.closest(".order"),id=card.dataset.id,result=card.querySelector(".result");
+  btn.disabled=true;result.textContent="جارٍ الحفظ...";
+  const {error}=await client.from("orders").update({status:card.querySelector(".status").value,admin_note:card.querySelector(".note").value,updated_at:new Date().toISOString()}).eq("id",id);
+  btn.disabled=false;
+  if(error){result.textContent=error.message;result.className="result error"}else{result.textContent="تم حفظ التحديث";result.className="result success"}
+ }));
+}
+async function syncSession(){
+ if(!client){showError(loginMsg,"بيانات Supabase غير مضبوطة في assets/store-config.js");return}
+ const {data:{session}}=await client.auth.getSession();
+ if(session){loginPanel.classList.add("hidden");dashboard.classList.remove("hidden");$("#logout").classList.remove("hidden");await loadOrders()}
+}
+$("#loginForm").addEventListener("submit",async e=>{
+ e.preventDefault();loginMsg.textContent="جارٍ تسجيل الدخول...";
+ const {error}=await client.auth.signInWithPassword({email:$("#email").value.trim(),password:$("#password").value});
+ if(error){showError(loginMsg,error.message);return}
+ await syncSession();
+});
+$("#logout").onclick=async()=>{await client.auth.signOut();dashboard.classList.add("hidden");loginPanel.classList.remove("hidden");$("#logout").classList.add("hidden")};
+$("#refresh").onclick=loadOrders;
+syncSession();
+</script>
+<script src="./assets/store-config.js"></script>
+</body></html>
